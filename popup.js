@@ -96,7 +96,7 @@ var sendData = function(){
 
 //this code sends a message to firebase to fetch a company name 
 //perhaps we can send a message whenever the extension is launched
-chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
+chrome.runtime.sendMessage({command: "fetch", data: { company: "kmart"}}, (res) => {
   helperFunction(res);
 },);
 

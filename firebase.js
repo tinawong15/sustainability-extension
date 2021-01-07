@@ -14,7 +14,9 @@ firebase.analytics();
 console.log("firebase" + firebase);
 
 var database = firebase.database();
-var currentSnapshot;
+var currentSnapshot = {};
+
+
 
 //all of these functions are used to read and send data
 var getListings = function (companyName) {
@@ -26,7 +28,7 @@ function loadListing(companyName){
 }
 
 function setListing(snapshot){
-  currentSnapshot = snapshot.val()
+  currentSnapshot = snapshot.val();
 }
 
 function showError(e){
@@ -41,8 +43,12 @@ chrome.runtime.onMessage.addListener((msg, sender, res) => {
   if(msg.command == "fetch"){
     var company = msg.data.company;
     getData(company);
-    res({type: "result", status: "success", data: currentSnapshot, request: msg});
+    var sol = {type: "result", status: "success", data: currentSnapshot, request: msg};
+    console.log(sol);
+    res(sol);
   }
 });
+
+
 
 
