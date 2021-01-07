@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
      });
 
      runVisualization();
+
+    document.getElementById("searchBar").addEventListener("change", onSearch);
+    function onSearch() {
+      var x = document.getElementById("searchBar").value;
+      document.getElementById("demo").innerHTML = "You selected: " + x;
+    }
 });
 
 function runVisualization() {
