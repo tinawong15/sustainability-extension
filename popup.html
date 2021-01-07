@@ -91,15 +91,40 @@
         </form>
         <p id="demo"></p>
       </div>
+      <!--User Pane-->
       <div class="tab-pane" id="account">
         <img src="images/meadow_logo.png" alt="meadow logo" style="width: 50px; margin-left: 10px; margin-top: 10px;">
         <hr style="margin-top: 10px;">
-        <h1 class="text-center" id="user-header">Login</h1> <!--will switch to user's account name once there are logged in-->
-        <form>
+        <h1 class="text-center" id="user-header">Sign Up</h1>
+        
+        <!--Sign Up Form-->
+        <script>
+          function register() {
+            let email = document.signup.email;
+            let password = document.signup.password;
+
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+              .then((user) => {
+                // Signed in 
+                // ...
+                return true;
+              })
+              .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ..
+                return false;
+              });
+            }
+        </script>
+
+        <form id="signup" onsubmit="return register()">
           <label for="email">Email:</label><br>
-          <input type="text" id="email" minlength="1">
-          <label for="password">Password:</label><br>
-          <input type="password" id="password" minlength="1"><br>
+          <input type="email" id="email" minlength="1" maxlength="100" required>
+          
+          <label for="password" >Password:</label><br>
+          <input type="password" id="password" minlength="1" maxlength="18" required><br>
+          
           <input type="submit" value="Submit">
         </form>
       </div>
