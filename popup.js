@@ -13,7 +13,17 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("store").innerHTML = activeTabUrl.slice(start,end);
      });
 
-     runVisualization();
+     chrome.runtime.sendMessage({command: "fetch", data: { company: "kmart"}}, (res) => {
+      getScore(res);
+    },);
+    
+    //this is where we can get the returned data
+    var getScore = function(res) {
+      console.log(res);
+      runVisualization(res.data.score);
+    }
+
+    //  runVisualization(score);
 
     document.getElementById("searchBar").addEventListener("change", onSearch);
     function onSearch() {
@@ -22,10 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function runVisualization() {
+function runVisualization(score) {
     var i = true;
     if(i) {
-        drawPie([20/100, 1-.20],"#graph");
+        drawPie([score/100, 1-(score/100)],"#graph");
         i = false;
     }
 }
@@ -80,28 +90,14 @@ var trans1 = function(b) {
   return function(t) { return arc(i(t)); };
 }
 
-var sendData = function(){
-  chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
-    helperFunction(res);
-  },);
-}
-
-// var testBut= document.getElementById("test-button");
-// testBut.addEventListener("click", ()=>{
-//   console.log("clicked button...");
-//   chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
-//     helperFunction(res);
-//   },);
-// });
-
 //this code sends a message to firebase to fetch a company name 
 //perhaps we can send a message whenever the extension is launched
-chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
-  helperFunction(res);
-},);
+// chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
+//   getScore(res);
+// },);
 
-//this is where we can get the returned data
-var helperFunction = function(res) {
-  console.log("running helper function...");
-  console.log(res);
-}
+// //this is where we can get the returned data
+// var getScore = function(res) {
+//   console.log(res);
+//   runVisualization(res.data.score);
+// }
