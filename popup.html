@@ -9,6 +9,8 @@
     <script src="popup.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
   </head>
   <style>
 
@@ -77,8 +79,8 @@
       <div class="tab-pane" id="account">
         <h1 class="text-center" id="user-header">Login</h1> <!--will switch to user's account name once there are logged in-->
         <form>
-          <label for="username">Username:</label><br>
-          <input type="text" id="username" minlength="1">
+          <label for="email">Email:</label><br>
+          <input type="text" id="email" minlength="1">
           <label for="password">Password:</label><br>
           <input type="password" id="password" minlength="1"><br>
           <input type="submit" value="Submit">
