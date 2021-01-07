@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
      });
 
      runVisualization();
+
+    document.getElementById("searchBar").addEventListener("change", onSearch);
+    function onSearch() {
+      var x = document.getElementById("searchBar").value;
+      document.getElementById("demo").innerHTML = "You selected: " + x;
+    }
 });
 
 function runVisualization() {
@@ -51,11 +57,9 @@ var drawPie = function(data,id){
   arcs.append("path")
     .attr("fill", function(d, i) {
       if (i == 0) {
-        return "#add8e6"
-        // return "#32CD32"
+        return "#8ACB88"
       }
-      else{
-        // return "#888888"
+      else {
         return "#C0C0C0"
       }
     })

@@ -1,17 +1,26 @@
 <!doctype html>
-<html style="height: 400px; width: 250px;">
+<html style="height: 400px; width: 300px;">
   <head>
     <title>Meadow</title>
-    <script src="d3/d3.min.js"></script>
+    <!-- add d3, jquery, popper, bootstrap, and md bootstrap libraries -->
+    <script src="libraries/d3/d3.min.js"></script>
+    <!-- <script src="libraries/jquery-3.5.1.slim.js"></script> -->
+    <script src="libraries/jquery-3.5.1.js"></script>
+    <script src="libraries/popper.min.js"></script>
+    <script src="libraries/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    <script src="libraries/MDB-Free_4.19.2/js/mdb.min.js"></script>
+    <script src="popup.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    
+    <!--the following adds FirebaseUI to the extension-->
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
   </head>
   <style>
-
-    .bar {
-      fill: #80cbc4;
-    }
-
     text {
       font-size: 14px;
       fill: #fff;
@@ -58,16 +67,52 @@
       font-size: 20px;
       font-weight: 400;
     }
-
+    .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid #8ACB88;
+  box-shadow: 0 1px 0 0 #8ACB88;
+}
   </style>
   <body>
-    <h1 class="text-center" id="store"></h1>
-    <div class="container-fluid">
+    <div class="tab-content">
+      <div class="tab-pane active" id="home">
+        <h1 class="text-center" id="store"></h1>
+      <div class="container-fluid">
         <h3 class="text-center">Sustainability Score:</h3>
         <div id="graph"></div>
-        <button id="test-button">Test</button>
-    </div>
-    <script src="popup.js"></script>
+      </div>
+      </div>
+      <div class="tab-pane" id="search">
+        <form class="form-inline d-flex justify-content-center md-form form-lg active-cyan-2 text-center" style="margin-left: 15px; margin-right: 15px;" >
+          <i class="fas fa-search" style="display:inline-block; margin-right: 10px;" aria-hidden="true"></i>
+          <input class="form-control form-control-lg p-5" style="width: 230px; display:inline-block;"type="text" placeholder="Search stores" id="searchBar"
+            aria-label="Search">
+        </form>
+        <p id="demo"></p>
+      </div>
+      <div class="tab-pane" id="account">
+        <h1 class="text-center" id="user-header">Login</h1> <!--will switch to user's account name once there are logged in-->
+        <form>
+          <label for="email">Email:</label><br>
+          <input type="text" id="email" minlength="1">
+          <label for="password">Password:</label><br>
+          <input type="password" id="password" minlength="1"><br>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+   </div>
 
+    <footer class="mt-auto" style="position: fixed; bottom: 0px; width: 100%; height: 50px;">
+      <ul class="nav nav-tabs" style="border-bottom:0px">
+        <li style="width: 33.3%;" class="text-center"><a class="nav-link active" href="#home" data-toggle="tab">
+          <img src="images/icon_home.svg" alt="icon_home">
+        </a></li>
+        <li style="width: 33.3%;" class="text-center"><a class="nav-link" href="#search" data-toggle="tab">
+          <img src="images/icon_search.svg" alt="icon_search">
+        </a></li>
+        <li style="width: 33.4%;" class="text-center"><a class="nav-link" href="#account" data-toggle="tab">
+          <img src="images/icon_account.svg" alt="icon_account">
+        </a></li>
+     </ul>
+    </footer>
   </body>
 </html>
