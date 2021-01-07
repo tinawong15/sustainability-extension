@@ -75,3 +75,29 @@ var trans1 = function(b) {
   var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
   return function(t) { return arc(i(t)); };
 }
+
+var sendData = function(){
+  chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
+    helperFunction(res);
+  },);
+}
+
+// var testBut= document.getElementById("test-button");
+// testBut.addEventListener("click", ()=>{
+//   console.log("clicked button...");
+//   chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
+//     helperFunction(res);
+//   },);
+// });
+
+//this code sends a message to firebase to fetch a company name 
+//perhaps we can send a message whenever the extension is launched
+chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
+  helperFunction(res);
+},);
+
+//this is where we can get the returned data
+var helperFunction = function(res) {
+  console.log("running helper function...");
+  console.log(res);
+}
