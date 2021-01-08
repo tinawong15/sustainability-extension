@@ -1,5 +1,5 @@
 <!doctype html>
-<html style="height: 400px; width: 300px;">
+<html style="height: 475px; width: 300px;">
   <head>
     <title>Meadow</title>
     <!-- add d3, jquery, popper, bootstrap, and md bootstrap libraries -->
@@ -9,6 +9,7 @@
     <script src="libraries/popper.min.js"></script>
     <script src="libraries/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
     <script src="libraries/MDB-Free_4.19.2/js/mdb.min.js"></script>
+    <script src="data.js" ></script>
     <script src="popup.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
@@ -89,7 +90,7 @@
           <input class="form-control form-control-lg p-5" style="width: 230px; display:inline-block;"type="text" placeholder="Search stores" id="searchBar"
             aria-label="Search">
         </form>
-        <p id="demo"></p>
+        <p id="results" style="margin-left: 10px; margin-right: 10px; max-height: 360px; overflow-y:scroll;"></p>
       </div>
       <!--User Pane-->
       <div class="tab-pane" id="account">
@@ -98,14 +99,23 @@
         <h1 class="text-center" id="user-header">Sign Up</h1>
         
         <!--Sign Up Form-->
-        <form id="signup">
-          <label for="email">Email:</label><br>
-          <input type="email" id="email" minlength="1" maxlength="100" required><br>
-          
-          <label for="password" >Password:</label><br>
-          <input type="password" id="password" minlength="1" maxlength="18" required><br>
-          
-          <input type="submit" value="Submit">
+        <form style="margin-left: 20px; margin-right: 20px;">
+          <div class="text-center mb-3">
+          <!-- Email input -->
+          <div style="margin-top:10px;" class="form-outline mb-4">
+            <label class="form-label" for="loginName">Email</label>
+            <input type="email" id="loginName" class="form-control" />
+          </div>
+    
+          <!-- Password input -->
+          <div style="margin-top:10px;" class="form-outline mb-4">
+            <label class="form-label" for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" class="form-control" />
+          </div>
+    
+    
+          <!-- Submit button -->
+          <button style="margin-top:10px;" type="submit" class="btn btn-primary btn-block mb-4">Sign In</button>
         </form>
       </div>
    </div>

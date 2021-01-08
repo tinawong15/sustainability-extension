@@ -10,22 +10,49 @@ document.addEventListener('DOMContentLoaded', function() {
             var start = activeTabUrl.indexOf("://") +3;
             var end = activeTabUrl.indexOf(".");
         }
-        document.getElementById("store").innerHTML = activeTabUrl.slice(start,end);
-     });
-
-     runVisualization();
-
+        runVisualization(activeTabUrl.slice(start,end));
+        document.getElementById("store").innerHTML = currentCompany;
+    });
+    
     document.getElementById("searchBar").addEventListener("change", onSearch);
     function onSearch() {
       var x = document.getElementById("searchBar").value;
-      document.getElementById("demo").innerHTML = "You selected: " + x;
+      // document.getElementById("demo").innerHTML = "You selected: " + x;
+      var content = "";
+      for (var key in DATA) {
+        // check if the property/key is defined in the object itself, not in parent
+        if (DATA.hasOwnProperty(key)) {           
+            if (key.toLowerCase().indexOf(x.toLowerCase()) != -1) {
+              content += "<p><strong>"+key+": </strong>"+DATA[key]["score"]+"</p>"
+            }
+        }
+      }
+      document.getElementById("results").innerHTML = content
     }
 });
 
-function runVisualization() {
+var currentCompany;
+
+function runVisualization(company) {
+  // console.log(company);
+  var score;
+    for (var key in DATA) {
+      // check if the property/key is defined in the object itself, not in parent
+      if (DATA.hasOwnProperty(key)) {       
+          var formatCompany = key.toLowerCase();
+          formatCompany = formatCompany.split(' ').join('')
+          if (formatCompany.indexOf(company) != -1) {
+            console.log(key);
+            currentCompany = key;
+            score = DATA[key]["score"]
+            break;
+            // console.log(DATA[key]["score"]);
+          }
+      }
+    }
     var i = true;
     if(i) {
-        drawPie([20/100, 1-.20],"#graph");
+        drawPie([score/100, 1-(score/100.0)],"#graph");
         i = false;
     }
 }
@@ -71,7 +98,7 @@ var drawPie = function(data,id){
     .style("text-anchor", "middle")
     .style("font-size","30px")
     .style("fill", "black")
-    .text(data[0] * 100 + "%");
+    .text((data[0] * 100).toFixed(0));
 }
 
 var trans1 = function(b) {
@@ -106,24 +133,24 @@ var helperFunction = function(res) {
   console.log(res);
 }
 
-let form = document.getElementById("signup");
-console.log(form);
-console.log("test console output");
+// let form = document.getElementById("signup");
+// console.log(form);
+// console.log("test console output");
 
-form.addEventListener('submit', function() {
-  let email = document.form.email;
-  let password = document.form.password;
+// form.addEventListener('submit', function() {
+//   let email = document.form.email;
+//   let password = document.form.password;
 
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-      // Signed in 
-      // ...
-      return true;
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ..
-      return false;
-    });
-});
+//   firebase.auth().createUserWithEmailAndPassword(email, password)
+//     .then((user) => {
+//       // Signed in 
+//       // ...
+//       return true;
+//     })
+//     .catch((error) => {
+//       var errorCode = error.code;
+//       var errorMessage = error.message;
+//       // ..
+//       return false;
+//     });
+// });
