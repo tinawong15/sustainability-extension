@@ -27,9 +27,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
       }
-      document.getElementById("results").innerHTML = content
+      document.getElementById("results").innerHTML = content;
     }
-});
+  });
+// var companyInfo;
+// document.addEventListener('DOMContentLoaded', function () {
+//   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+//     var activeTab = tabs[0];
+//     var activeTabUrl = activeTab.url;
+//     if (activeTabUrl.indexOf("www") != -1) {
+//       var start = activeTabUrl.indexOf("www.") + 4;
+//       var end = activeTabUrl.indexOf(".", 12);
+//     }
+//     else {
+//       var start = activeTabUrl.indexOf("://") + 3;
+//       var end = activeTabUrl.indexOf(".");
+//     }
+//     document.getElementById("store").innerHTML = activeTabUrl.slice(start, end);
+//     //this code sends a message to firebase to fetch a company name 
+//     chrome.runtime.sendMessage({ command: "fetch", data: { company: activeTabUrl.slice(start, end) } }, (res) => {
+//       companyInfo = res;
+//       helperFunction(res)
+//     });
+  // });
+// });
 
 var currentCompany;
 
@@ -55,19 +76,28 @@ function runVisualization(company) {
         drawPie([score/100, 1-(score/100.0)],"#graph");
         i = false;
     }
-}
+  }
+// function runVisualization(score) {
+//   var i = true;
+//   score = isNaN(score) ? 5 : score;
+
+//   if (i) {
+//     drawPie([score / 100, 1 - (score / 100)], "#graph");
+//     i = false;
+//   }
+// }
 
 var width = 480,
-height = 250,
-radius = Math.min(width, height) / 2 - 10;
+  height = 250,
+  radius = Math.min(width, height) / 2 - 10;
 
-var arc = d3.arc().innerRadius(radius-35)
-.outerRadius(radius)
-.outerRadius(radius);
+var arc = d3.arc().innerRadius(radius - 35)
+  .outerRadius(radius)
+  .outerRadius(radius);
 
 var pie = d3.pie();
 
-var drawPie = function(data,id){
+var drawPie = function (data, id) {
   var svg = d3.select(id).append("svg")
     .datum(data)
     .attr("width", "100%")
@@ -82,7 +112,7 @@ var drawPie = function(data,id){
     .attr("class", "arc");
 
   arcs.append("path")
-    .attr("fill", function(d, i) {
+    .attr("fill", function (d, i) {
       if (i == 0) {
         return "#8ACB88"
       }
@@ -96,43 +126,21 @@ var drawPie = function(data,id){
 
   arcs.append("text")
     .style("text-anchor", "middle")
-    .style("font-size","30px")
+    .style("font-size", "30px")
     .style("fill", "black")
     .text((data[0] * 100).toFixed(0));
 }
 
-var trans1 = function(b) {
+var trans1 = function (b) {
   b.innerRadius = 0;
-  var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-  return function(t) { return arc(i(t)); };
+  var i = d3.interpolate({ startAngle: 0, endAngle: 0 }, b);
+  return function (t) { return arc(i(t)); };
 }
-
-var sendData = function(){
-  chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
-    helperFunction(res);
-  },);
-}
-
-// var testBut= document.getElementById("test-button");
-// testBut.addEventListener("click", ()=>{
-//   console.log("clicked button...");
-//   chrome.runtime.sendMessage({command: "fetch", data: { company: "walmart"}}, (res) => {
-//     helperFunction(res);
-//   },);
-// });
-
-//this code sends a message to firebase to fetch a company name 
-//perhaps we can send a message whenever the extension is launched
-chrome.runtime.sendMessage({command: "fetch", data: { company: "kmart"}}, (res) => {
-  helperFunction(res);
-},);
 
 //this is where we can get the returned data
-var helperFunction = function(res) {
-  console.log("running helper function...");
+var helperFunction = function (res) {
   console.log(res);
 }
-
 // let form = document.getElementById("signup");
 // console.log(form);
 // console.log("test console output");
@@ -154,3 +162,11 @@ var helperFunction = function(res) {
 //       return false;
 //     });
 // });
+//   runVisualization(parseInt(res.data.score));
+
+//   document.getElementById("searchBar").addEventListener("change", onSearch);
+//   function onSearch() {
+//     var x = document.getElementById("searchBar").value;
+//     document.getElementById("demo").innerHTML = "You selected: " + x;
+//   }
+// }
