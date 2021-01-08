@@ -105,25 +105,3 @@ var helperFunction = function(res) {
   console.log("running helper function...");
   console.log(res);
 }
-
-let form = document.getElementById("signup");
-console.log(form);
-console.log("test console output");
-
-form.addEventListener('submit', function() {
-  let email = document.form.email;
-  let password = document.form.password;
-
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-      // Signed in 
-      // ...
-      return true;
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ..
-      return false;
-    });
-});

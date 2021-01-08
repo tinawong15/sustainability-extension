@@ -1,3 +1,5 @@
+// TODO: Replace the following with your app's Firebase project configuration
+// For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 var firebaseConfig = {
   apiKey: "AIzaSyDDaQ3rtacsC93xokNVjSyb34JnXwK_brQ",
   authDomain: "meadow-dfc9d.firebaseapp.com",
@@ -7,9 +9,9 @@ var firebaseConfig = {
   appId: "1:400468998957:web:0c9a971c6fe2b4e01931a4",
   measurementId: "G-DW83QQ6DN5"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
 console.log("firebase" + firebase);
 
@@ -47,6 +49,28 @@ chrome.runtime.onMessage.addListener((msg, sender, res) => {
     console.log(sol);
     res(sol);
   }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // grab the form by its ID
+  let form = document.getElementById("signup");
+  // upon submission, create a user w/ the email and password
+  // the form validates input so email should always be valid
+  form.addEventListener("submit", function() {
+    let email = form.email;
+    let password = form.password;
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((user) => {
+      // Signed in 
+      // ...
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ..
+    });
+  })
 });
 
 
