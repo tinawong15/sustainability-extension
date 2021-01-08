@@ -31,7 +31,10 @@ function loadListing(companyName){
 
 function setListing(snapshot){
   console.log(snapshot.val());
-  currentSnapshot = snapshot.val();
+  if(snapshot.exists())
+    currentSnapshot = snapshot.val();
+  else  
+    currentSnapshot = { formattedName: 'Not Calculated', score: 0 };
 }
 
 function showError(e){
