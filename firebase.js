@@ -19,7 +19,7 @@ var currentSnapshot = {};
 
 
 //all of these functions are used to read and send data
-var getListings = function (companyName) {
+function getListings(companyName) {
   return database.ref('/companies/' + companyName).once("value");
 };
 
@@ -28,6 +28,7 @@ function loadListing(companyName){
 }
 
 function setListing(snapshot){
+  console.log(snapshot.val());
   currentSnapshot = snapshot.val();
 }
 
@@ -39,15 +40,19 @@ function getData(companyName){
   loadListing(companyName);
 }
 
+
 chrome.runtime.onMessage.addListener((msg, sender, res) => {
   if(msg.command == "fetch"){
     var company = msg.data.company;
-    getData(company);
-    var sol = {type: "result", status: "success", data: currentSnapshot, request: msg};
-    console.log(sol);
-    res(sol);
+    for(var i = 0; i < 3; i++){
+      getData(company);
+      if(currentSnapshot && Object.keys(currentSnapshot).length > 0) break;
+    }
+    res({type: "result", status: "success", data: currentSnapshot, request: msg});
   }
 });
+
+
 
 
 
